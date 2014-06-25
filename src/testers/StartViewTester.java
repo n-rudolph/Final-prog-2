@@ -1,5 +1,6 @@
 package testers;
 
+import view.BoardView;
 import view.LanguageManager;
 import view.StartView;
 

@@ -11,7 +11,8 @@ import java.awt.event.ActionListener;
  */
 public class NewGameViewTester {
     public static void main(String[] args) {
-        NewGameView ngv = new NewGameView(new TwoPlayerListener(), new VsMachineListener(), new LanguageManager());
+        NewGameView ngv = new NewGameView(new TwoPlayerListener(), new VsMachineListener(), new LanguageManager(),
+                new BackNewGameListener());
     }
 
     public static class TwoPlayerListener implements ActionListener {
@@ -27,6 +28,13 @@ public class NewGameViewTester {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+
+        }
+    }
+    public static class BackNewGameListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
 
         }
     }

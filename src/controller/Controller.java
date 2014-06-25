@@ -17,7 +17,7 @@ public class Controller {
     private StartView sv;
     private NewGameView ngv;
     private BoardView bv;
-    private SettingsView settV;
+    private SettingsView settings;
     private RulesView rv;
 
     private Game game;
@@ -41,13 +41,23 @@ public class Controller {
             internationalizable.changeLanguage(c, l);
     }
 
+    public void startGame(boolean machine){
+        sv.setVisible(false);
+        game = new Game(machine);
+        bv = new BoardView(languageManager,new NewGameListener(), new LoadListener(), new SaveListener(),
+                new RulesListener(), new SettingsListener(), new SpanishMenuListener(), new EnglishMenuListener(),
+                new ExitListener());
+        internationalizables.add(bv);
+    }
+
     public class NewGameListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            ngv= new NewGameView(new TwoPlayerListener(), new VsMachineListener(), languageManager);
+            ngv= new NewGameView(new TwoPlayerListener(), new VsMachineListener(), languageManager, new BackNewGameListener());
             internationalizables.add(ngv);
             sv.setVisible(false);
+            bv.dispose();
         }
     }
 
@@ -71,7 +81,8 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            settV= new SettingsView(languageManager, new SpanishListener(), new EnglishListener(),new BackListener());
+            settings= new SettingsView(languageManager, new SpanishListener(), new EnglishListener(),
+                    new BackSettingsListener());
             sv.setVisible(false);
         }
     }
@@ -88,7 +99,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            startGame(false);
         }
     }
 
@@ -96,8 +107,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
-
+           startGame(true);
         }
     }
 
@@ -106,6 +116,7 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             changeLanguage("es", "AR");
+            sv.setVisible(true);
         }
     }
 
@@ -113,20 +124,45 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             changeLanguage("en", "US");
+            sv.setVisible(true);
+        }
+    }
+
+    public class SpanishMenuListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            changeLanguage("es","AR");
+        }
+    }
+
+    public class EnglishMenuListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            changeLanguage("en","US");
         }
     }
 
     public class ExitListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            System.exit(0);
         }
     }
 
-    public class BackListener implements ActionListener{
+    public class BackSettingsListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
+            settings.dispose();
+            sv.setVisible(true);
+        }
+    }
 
+    public class BackNewGameListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ngv.dispose();
+            sv.setVisible(true);
         }
     }
 }

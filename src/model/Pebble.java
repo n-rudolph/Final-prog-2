@@ -6,4 +6,8 @@ package model;
 public class Pebble {
     PebbleType pebbleType;
 
+    public Pebble( PebbleType type){
+        pebbleType=type;
+    }
+
 }

@@ -19,7 +19,8 @@ public class NewGameView extends JFrame implements Internationalizable{
     JButton twoPlayer, vsMachine, back;
     private  LanguageManager languageManager;
 
-    public NewGameView(ActionListener twoPlayerListener, ActionListener vsMachineListener, LanguageManager languageManager) {
+    public NewGameView(ActionListener twoPlayerListener, ActionListener vsMachineListener, LanguageManager languageManager,
+                       ActionListener backAction) {
         super(languageManager.getString("newGameTitle"));
         this.languageManager= languageManager;
 
@@ -29,22 +30,23 @@ public class NewGameView extends JFrame implements Internationalizable{
         chooseModePanel= new JPanel();
 
         titleLabel= new JLabel(languageManager.getString("selectMode"));
-
         twoPlayer= new JButton("1 vs. 1");
         twoPlayer.addActionListener(twoPlayerListener);
-        twoPlayer.addActionListener(new ButtonListener());
+        twoPlayer.addActionListener(backAction);
         twoPlayer.setAlignmentY(Component.CENTER_ALIGNMENT);
 
 
         vsMachine= new JButton(languageManager.getString("vsMachine"));
         vsMachine.addActionListener(vsMachineListener);
-        vsMachine.addActionListener(new ButtonListener());
+        vsMachine.addActionListener(backAction);
         vsMachine.setAlignmentY(Component.CENTER_ALIGNMENT);
 
         chooseModePanel.add(twoPlayer);
         chooseModePanel.add(vsMachine);
 
+
         back = new JButton(languageManager.getString("back"));
+        back.addActionListener(backAction);
 
         panel1.add(titleLabel);
         panel1.add(chooseModePanel);
@@ -71,10 +73,5 @@ public class NewGameView extends JFrame implements Internationalizable{
     }
 
 
-    class ButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            dispose();
-        }
-    }
+
 }

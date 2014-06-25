@@ -17,7 +17,7 @@ public class SettingsView extends JFrame implements Internationalizable {
     private LanguageManager languageManager;
 
     public SettingsView(LanguageManager languageManager, ActionListener spanishListener, ActionListener englishListener,
-                        ActionListener backListener) {
+                        ActionListener backSettingsListener) {
 
         super(languageManager.getString("settings"));
         this.languageManager=languageManager;
@@ -37,7 +37,7 @@ public class SettingsView extends JFrame implements Internationalizable {
         english.addActionListener(new ButtonListener());
 
         back = new JButton(languageManager.getString("back"));
-        back.addActionListener(backListener);
+        back.addActionListener(backSettingsListener);
         back.addActionListener(new ButtonListener());
         back.setAlignmentX(CENTER_ALIGNMENT);
 
