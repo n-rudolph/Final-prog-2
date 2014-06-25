@@ -45,8 +45,8 @@ public class Controller {
         sv.setVisible(false);
         game = new Game(machine);
         bv = new BoardView(languageManager,new NewGameListener(), new LoadListener(), new SaveListener(),
-                new RulesListener(), new SettingsListener(), new SpanishMenuListener(), new EnglishMenuListener(),
-                new ExitListener());
+                new RulesListener(), new SpanishMenuListener(), new EnglishMenuListener(),
+                new ExitListener(), new IntersectionListener());
         internationalizables.add(bv);
     }
 
@@ -163,6 +163,17 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             ngv.dispose();
             sv.setVisible(true);
+        }
+    }
+
+    public class IntersectionListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String command= e.getActionCommand();
+            String [] coordenates=command.split(",");
+            game.play(Integer.parseInt(coordenates[0]),Integer.parseInt(coordenates[1]));
+            bv.changeImage(Integer.parseInt(coordenates[0]),Integer.parseInt(coordenates[1]),Intersection.TOP_LEFT_BLACK.getImage());
         }
     }
 }

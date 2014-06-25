@@ -10,8 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by rudolpha on 17/05/2014.
  */
-public class BoardView extends JFrame implements Internationalizable, ActionListener{
-
+public class BoardView extends JFrame implements Internationalizable{
 
     JPanel board;
     JPanel gameInfo;
@@ -32,16 +31,17 @@ public class BoardView extends JFrame implements Internationalizable, ActionList
     JMenuItem spanishItem;
 
     LanguageManager languageManager;
+    JButton[][] intersections;
 
     public BoardView(LanguageManager languageManager, ActionListener newGameListener,ActionListener loadListener,
-                     ActionListener saveListener,ActionListener rulesListener, ActionListener settingsListener,
-                     ActionListener spanishListener, ActionListener englishListener, ActionListener exitListener) {
+                     ActionListener saveListener,ActionListener rulesListener, ActionListener spanishListener,
+                     ActionListener englishListener, ActionListener exitListener,ActionListener intersectionListener) {
         super(languageManager.getString("startTitle"));
         this.languageManager=languageManager;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        board=startBoard(new JPanel());
+        board=startBoard(new JPanel(),intersectionListener);
         gameInfo=new JPanel();
 
         menuBar = new JMenuBar();
@@ -109,8 +109,8 @@ public class BoardView extends JFrame implements Internationalizable, ActionList
         languageMenu.setText(languageManager.getString("language"));
     }
 
-    public JPanel startBoard(JPanel panel) {
-
+    public JPanel startBoard(JPanel panel,ActionListener intersectionListener) {
+        intersections= new JButton[9][9];
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         for (int i = 0; i < 9; i++) {
@@ -134,13 +134,15 @@ public class BoardView extends JFrame implements Internationalizable, ActionList
                     image = Intersection.RIGHT_EMPTY.getImage();
                 else
                     image = Intersection.INTERIOR_EMPTY.getImage();
-                JButton aux = new JButton(image);
+
+                JButton aux  = new JButton(image);
                 aux.setPreferredSize(new Dimension(50,50));
                 aux.setMaximumSize(new Dimension(50, 50));
                 aux.setMinimumSize(new Dimension(50, 50));
                 aux.setBorderPainted(false);
-                aux.addActionListener(new ButtonListener());
-                aux.setActionCommand(Integer.toString(j) +","+ Integer.toString(i));
+                aux.addActionListener(intersectionListener);
+                aux.setActionCommand(Integer.toString(i) +","+ Integer.toString(j));
+                intersections[i][j]=aux;
                 c.fill=GridBagConstraints.BOTH;
                 c.gridx = j;
                 c.gridy = i;
@@ -152,23 +154,10 @@ public class BoardView extends JFrame implements Internationalizable, ActionList
         return panel;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String command= e.getActionCommand();
-        for  (int i =0;i<9;i++){
-            for (int j=0;j<9;j++){
-                if (command.compareTo(Integer.toString(j) +","+ Integer.toString(i))==0){
-
-                }
-            }
-        }
+    public void changeImage(int i, int j , ImageIcon image){
+        JButton aux = intersections[i][j];
+        aux.setIcon(image);
     }
 
-    public class ButtonListener implements ActionListener{
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
-    }
 }
