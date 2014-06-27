@@ -10,10 +10,10 @@ public class ErrorView extends JFrame {
 
     JLabel errorMessage;
 
-    public ErrorView(LanguageManager languageManager, String key){
-        super(languageManager.getString("Error"));
+    public ErrorView(LanguageManager languageManager,String errorKey, String messageKey){
+        super(languageManager.getString(errorKey));
 
-        errorMessage= new JLabel(languageManager.getString(key));
+        errorMessage= new JLabel(languageManager.getString(messageKey));
         errorMessage.setHorizontalAlignment(SwingConstants.CENTER);
         errorMessage.setVerticalAlignment(SwingConstants.CENTER);
         errorMessage.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -24,8 +24,7 @@ public class ErrorView extends JFrame {
 
         getContentPane().add(errorMessage);
         setSize(d);
-        setPreferredSize(d);
-        setMinimumSize(d);
+        setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

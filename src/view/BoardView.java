@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import model.Coordinates;
 import model.PebbleType;
 
 import javax.swing.*;
@@ -135,7 +136,9 @@ public class BoardView extends JFrame implements Internationalizable{
         return panel;
     }
 
-    public void changeImage(int i, int j , PebbleType pebbleType){
+    public void changeImage(Coordinates c, PebbleType pebbleType){
+        int i =c.getI();
+        int j= c.getJ();
         JButton aux = intersections[i][j];
         aux.setIcon(getImage(i,j,pebbleType));
     }
@@ -207,5 +210,12 @@ public class BoardView extends JFrame implements Internationalizable{
                 image = Intersection.INTERIOR_BLACK.getImage();
         }
         return image;
+    }
+
+    public void disableButton(int i, int j) {
+        intersections[i][j].setEnabled(false);
+    }
+    public void enableButton(int i, int j) {
+        intersections[i][j].setEnabled(true);
     }
 }

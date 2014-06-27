@@ -1,7 +1,9 @@
 package controller;
 
-import model.Game;
+import model.Coordinates;
+import model.Game1;
 import model.PebbleType;
+import model.SuicideMoveException;
 import view.*;
 
 import javax.swing.plaf.basic.BasicOptionPaneUI;
@@ -21,7 +23,7 @@ public class Controller {
     private SettingsView settings;
     private RulesView rv;
 
-    private Game game;
+    private Game1 game;
     private LanguageManager languageManager;
     private List<Internationalizable> internationalizables;
 
@@ -40,13 +42,21 @@ public class Controller {
             internationalizable.changeLanguage(c, l);
     }
 
+    public void placePebble(Coordinates c){
+        bv.changeImage(c, game.getPlayerTurn());
+    }
+
     public void startGame(boolean machine){
         sv.setVisible(false);
-        game = new Game(machine);
+        game = new Game1(machine, this);
         bv = new BoardView(languageManager,new NewGameListener(), new LoadListener(), new SaveListener(),
                 new RulesListener(), new SpanishMenuListener(), new EnglishMenuListener(),
                 new ExitListener(), new IntersectionListener());
         internationalizables.add(bv);
+    }
+
+    public void diableButton(Coordinates c) {
+        bv.disableButton(c.getI(),c.getJ());
     }
 
     public class NewGameListener implements ActionListener{
@@ -173,8 +183,13 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             String command= e.getActionCommand();
             String [] coordenates=command.split(",");
-            game.play(Integer.parseInt(coordenates[0]),Integer.parseInt(coordenates[1]));
-            bv.changeImage(Integer.parseInt(coordenates[0]),Integer.parseInt(coordenates[1]), PebbleType.BLACK);
+
+            try {
+                game.play(new Coordinates(Integer.parseInt(coordenates[0]),Integer.parseInt(coordenates[1])));
+            } catch (SuicideMoveException e1) {
+                ErrorView er = new ErrorView(languageManager,"suicideError", "suicideMove");
+            }
+
         }
     }
 }
