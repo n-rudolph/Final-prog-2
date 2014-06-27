@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import model.PebbleType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -115,27 +116,7 @@ public class BoardView extends JFrame implements Internationalizable{
         GridBagConstraints c = new GridBagConstraints();
         for (int i = 0; i < 9; i++) {
             for (int j =0;j<9;j++) {
-                ImageIcon image;
-                if (i==0 && j ==0)
-                    image = Intersection.TOP_LEFT_EMPTY.getImage();
-                else if (i==0 && j==8)
-                    image = Intersection.TOP_RIGTH_EMPTY.getImage();
-                else if (i ==8 && j==0)
-                    image = Intersection.BOTTOM_LEFT_EMPTY.getImage();
-                else if (i==8 && j==8)
-                    image=Intersection.BOTTOM_RIGTH_EMPTY.getImage();
-                else if (i==0)
-                    image = Intersection.TOP_EMPTY.getImage();
-                else if (i ==8)
-                    image = Intersection.BOTTOM_EMPTY.getImage();
-                else if (j==0)
-                    image = Intersection.LEFT_EMPTY.getImage();
-                else if (j==8)
-                    image = Intersection.RIGHT_EMPTY.getImage();
-                else
-                    image = Intersection.INTERIOR_EMPTY.getImage();
-
-                JButton aux  = new JButton(image);
+                JButton aux  = new JButton(getImage(i,j,PebbleType.EMPTY));
                 aux.setPreferredSize(new Dimension(50,50));
                 aux.setMaximumSize(new Dimension(50, 50));
                 aux.setMinimumSize(new Dimension(50, 50));
@@ -154,10 +135,77 @@ public class BoardView extends JFrame implements Internationalizable{
         return panel;
     }
 
-    public void changeImage(int i, int j , ImageIcon image){
+    public void changeImage(int i, int j , PebbleType pebbleType){
         JButton aux = intersections[i][j];
-        aux.setIcon(image);
+        aux.setIcon(getImage(i,j,pebbleType));
     }
 
-
+    private ImageIcon getImage(int i , int j, PebbleType pebbleType) {
+        ImageIcon image;
+        if (i == 0 && j == 0) {
+            if (pebbleType==PebbleType.EMPTY)
+                image = Intersection.TOP_LEFT_EMPTY.getImage();
+            else if (pebbleType==PebbleType.WHITE)
+                image = Intersection.TOP_LEFT_WHITE.getImage();
+            else
+                image = Intersection.TOP_LEFT_BLACK.getImage();
+        } else if (i == 0 && j == 8){
+            if (pebbleType==PebbleType.EMPTY)
+                image = Intersection.TOP_RIGTH_EMPTY.getImage();
+            else if (pebbleType==PebbleType.WHITE)
+                image = Intersection.TOP_RIGTH_WHITE.getImage();
+            else
+                image = Intersection.TOP_RIGTH_BLACK.getImage();
+        }else if (i ==8 && j==0) {
+            if (pebbleType==PebbleType.EMPTY)
+                image = Intersection.BOTTOM_LEFT_EMPTY.getImage();
+            else if (pebbleType==PebbleType.WHITE)
+                image = Intersection.BOTTOM_LEFT_WHITE.getImage();
+            else
+                image = Intersection.BOTTOM_LEFT_BLACK.getImage();
+        }else if (i==8 && j==8) {
+            if (pebbleType==PebbleType.EMPTY)
+                image = Intersection.BOTTOM_RIGTH_EMPTY.getImage();
+            else if (pebbleType==PebbleType.WHITE)
+                image = Intersection.BOTTOM_RIGTH_WHITE.getImage();
+            else
+                image = Intersection.BOTTOM_RIGTH_BLACK.getImage();
+        }else if (i==0) {
+            if (pebbleType==PebbleType.EMPTY)
+                image = Intersection.TOP_EMPTY.getImage();
+            else if (pebbleType==PebbleType.WHITE)
+                image = Intersection.TOP_WHITE.getImage();
+            else
+                image = Intersection.TOP_BLACK.getImage();
+        }else if (i ==8) {
+            if (pebbleType==PebbleType.EMPTY)
+                image = Intersection.BOTTOM_EMPTY.getImage();
+            else if (pebbleType==PebbleType.WHITE)
+                image = Intersection.BOTTOM_WHITE.getImage();
+            else
+                image = Intersection.BOTTOM_BLACK.getImage();
+        }else if (j==0) {
+            if (pebbleType==PebbleType.EMPTY)
+                image = Intersection.LEFT_EMPTY.getImage();
+            else if (pebbleType==PebbleType.WHITE)
+                image = Intersection.LEFT_WHITE.getImage();
+            else
+                image = Intersection.LEFT_BLACK.getImage();
+        }else if (j==8) {
+            if (pebbleType==PebbleType.EMPTY)
+                image = Intersection.RIGTH_EMPTY.getImage();
+            else if (pebbleType==PebbleType.WHITE)
+                image = Intersection.RIGTH_WHITE.getImage();
+            else
+                image = Intersection.RIGTH_BLACK.getImage();
+        }else {
+            if (pebbleType==PebbleType.EMPTY)
+                image = Intersection.INTERIOR_EMPTY.getImage();
+            else if (pebbleType==PebbleType.WHITE)
+                image = Intersection.INTERIOR_WHITE.getImage();
+            else
+                image = Intersection.INTERIOR_BLACK.getImage();
+        }
+        return image;
+    }
 }

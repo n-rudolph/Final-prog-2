@@ -23,55 +23,50 @@ public class StartView extends JFrame implements Internationalizable {
 
     JMenuItem newGameItem;
     JMenuItem loadGameItem;
-    JMenuItem saveGameItem;
     JMenuItem exitItem;
-
 
     JMenuItem rulesItem;
     JMenuItem englishItem;
     JMenuItem spanishItem;
 
-
     private LanguageManager languageManager;
 
     public StartView(LanguageManager languageManager, ActionListener newGameListener,ActionListener loadListener,
-                     ActionListener saveListener,ActionListener rulesListener, ActionListener settingsListener,
-                     ActionListener spanishListener, ActionListener englishListener, ActionListener exitListener) {
+                     ActionListener rulesListener, ActionListener settingsListener,ActionListener spanishListener,
+                     ActionListener englishListener, ActionListener exitListener) {
         super(languageManager.getString("startTitle"));
+        setContentPane(new JLabel(new ImageIcon(getClass().getResource("imagenes/Otras/main-image.png"))));
+        setLayout(new BorderLayout());
         this.languageManager=languageManager;
 
-        startPanel = new JPanel(new GridLayout(3, 3));
+        startPanel = new JPanel();
+        startPanel.setLayout(new BoxLayout(startPanel,BoxLayout.Y_AXIS));
+        startPanel.setOpaque(false);
 
         newButton = new JButton(languageManager.getString("newGame"));
+        newButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         newButton.addActionListener(newGameListener);
+
         loadButton = new JButton(languageManager.getString("load"));
         loadButton.addActionListener(loadListener);
+        loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         rulesButton = new JButton(languageManager.getString("rules"));
         rulesButton.addActionListener(rulesListener);
+        rulesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         optionButton = new JButton(languageManager.getString("settings"));
         optionButton.addActionListener(settingsListener);
+        optionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        startPanel.add(Box.createVerticalStrut(50));
         startPanel.add(newButton);
-        startPanel.add(new JLabel(" "));
+        startPanel.add(Box.createVerticalStrut(10));
         startPanel.add(optionButton);
-        startPanel.add(new JLabel(" "));
-        startPanel.add(new JLabel(" "));
-        startPanel.add(new JLabel(" "));
+        startPanel.add(Box.createVerticalStrut(10));
         startPanel.add(loadButton);
-        startPanel.add(new JLabel(" "));
+        startPanel.add(Box.createVerticalStrut(10));
         startPanel.add(rulesButton);
-
-        Dimension expectedDimension = new Dimension(400, 300);
-
-        startPanel.setPreferredSize(expectedDimension);
-        startPanel.setMaximumSize(expectedDimension);
-        startPanel.setMinimumSize(expectedDimension);
-
-        Box box = new Box(BoxLayout.Y_AXIS);
-
-        box.add(Box.createVerticalGlue());
-        box.add(startPanel);
-        box.add(Box.createVerticalGlue());
 
         menuBar = new JMenuBar();
         startMenu = new JMenu(languageManager.getString("start"));
@@ -80,14 +75,11 @@ public class StartView extends JFrame implements Internationalizable {
         newGameItem.addActionListener(newGameListener);
         loadGameItem = new JMenuItem(languageManager.getString("load"));
         loadGameItem.addActionListener(loadListener);
-        saveGameItem = new JMenuItem(languageManager.getString("save"));
-        saveGameItem.addActionListener(saveListener);
         exitItem = new JMenuItem(languageManager.getString("exit"));
         exitItem.addActionListener(exitListener);
 
         startMenu.add(newGameItem);
         startMenu.add(loadGameItem);
-        startMenu.add(saveGameItem);
         startMenu.add(exitItem);
 
         optionMenu = new JMenu(languageManager.getString("settings"));
@@ -108,12 +100,13 @@ public class StartView extends JFrame implements Internationalizable {
         menuBar.add(startMenu);
         menuBar.add(optionMenu);
 
+        add(startPanel,BorderLayout.CENTER);
         getContentPane().add(menuBar, BorderLayout.NORTH);
-        getContentPane().add(box);
-        setMinimumSize(new Dimension(500, 500));
+        Dimension d= new Dimension(600,347);
+        setSize(d);
         setLocationRelativeTo(null);
         setVisible(true);
-        setSize(500, 500);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -132,7 +125,6 @@ public class StartView extends JFrame implements Internationalizable {
         startMenu.setText(languageManager.getString("start"));
         newGameItem.setText(languageManager.getString("newGame"));
         loadGameItem .setText(languageManager.getString("load"));
-        saveGameItem .setText(languageManager.getString("save"));
         exitItem .setText(languageManager.getString("exit"));
 
         optionMenu.setText(languageManager.getString("settings"));

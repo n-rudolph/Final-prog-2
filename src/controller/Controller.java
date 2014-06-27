@@ -1,6 +1,7 @@
 package controller;
 
 import model.Game;
+import model.PebbleType;
 import view.*;
 
 import javax.swing.plaf.basic.BasicOptionPaneUI;
@@ -28,11 +29,9 @@ public class Controller {
     public Controller(){
         languageManager= new LanguageManager();
         internationalizables= new ArrayList<Internationalizable>();
-        sv= new StartView(languageManager, new NewGameListener(), new LoadListener(), new SaveListener(),
-                new RulesListener(),new SettingsListener(),new SpanishListener(), new EnglishListener(),
-                new ExitListener());
+        sv= new StartView(languageManager, new NewGameListener(), new LoadListener(),new RulesListener(),
+                new SettingsListener(),new SpanishListener(), new EnglishListener(), new ExitListener());
         internationalizables.add(sv);
-
 
     }
     public void changeLanguage(String l, String c){
@@ -99,6 +98,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            ngv.dispose();
             startGame(false);
         }
     }
@@ -107,6 +107,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+           ngv.dispose();
            startGame(true);
         }
     }
@@ -173,7 +174,7 @@ public class Controller {
             String command= e.getActionCommand();
             String [] coordenates=command.split(",");
             game.play(Integer.parseInt(coordenates[0]),Integer.parseInt(coordenates[1]));
-            bv.changeImage(Integer.parseInt(coordenates[0]),Integer.parseInt(coordenates[1]),Intersection.TOP_LEFT_BLACK.getImage());
+            bv.changeImage(Integer.parseInt(coordenates[0]),Integer.parseInt(coordenates[1]), PebbleType.BLACK);
         }
     }
 }

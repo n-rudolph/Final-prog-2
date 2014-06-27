@@ -16,7 +16,7 @@ public class StartViewTester {
     public static void main(String[] args) {
         languageManager= new LanguageManager() ;
         sv = new StartView(languageManager, new NewGameListener(),
-                new LoadListener(), new SaveListener(), new RulesListener(), new SettingsListener(),
+                new LoadListener(), new RulesListener(), new SettingsListener(),
                 new SpanishListener(), new EnglishListener(), new ExitListener());
 
     }

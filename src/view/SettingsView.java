@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 
 /**
  * Created by rudolpha on 08/06/2014.
@@ -21,46 +22,59 @@ public class SettingsView extends JFrame implements Internationalizable {
 
         super(languageManager.getString("settings"));
         this.languageManager=languageManager;
-
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
+        setContentPane(new JLabel(new ImageIcon(getClass().getResource("imagenes/Otras/banderas.png"))));
+        setLayout(new BorderLayout());
+
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setOpaque(false);
+
         languageLabel = new JLabel(languageManager.getString("languageSelect"));
-        languageLabel.setAlignmentY(CENTER_ALIGNMENT);
-        languageLabel.setAlignmentX(CENTER_ALIGNMENT);
+        languageLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
+        languageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        languageLabel.setForeground(Color.BLACK);
+        languageLabel.setFont(new Font("Serif",Font.BOLD,24));
+
+
+        buttonPanel= new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.setOpaque(false);
 
         spanish = new JButton("Español");
         spanish.addActionListener(spanishListener);
         spanish.addActionListener(new ButtonListener());
+        spanish.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         english = new JButton("English");
         english.addActionListener(englishListener);
         english.addActionListener(new ButtonListener());
+        english.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        buttonPanel.add(english);
+        buttonPanel.add(Box.createHorizontalStrut(100));
+        buttonPanel.add(spanish);
 
         back = new JButton(languageManager.getString("back"));
         back.addActionListener(backSettingsListener);
         back.addActionListener(new ButtonListener());
-        back.setAlignmentX(CENTER_ALIGNMENT);
+        back.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        buttonPanel = new JPanel();
-        buttonPanel.add(spanish);
-        buttonPanel.add(english);
-        buttonPanel.setAlignmentY(CENTER_ALIGNMENT);
-        buttonPanel.setAlignmentX(CENTER_ALIGNMENT);
-
+        mainPanel.add(Box.createVerticalStrut(5));
         mainPanel.add(languageLabel);
+        mainPanel.add(Box.createVerticalStrut(25));
         mainPanel.add(buttonPanel);
+        mainPanel.add(Box.createVerticalStrut(30));
         mainPanel.add(back);
-        mainPanel.setAlignmentY(CENTER_ALIGNMENT);
-        mainPanel.setAlignmentX(CENTER_ALIGNMENT);
 
-        Dimension d = new Dimension(350, 400);
+        Dimension d = new Dimension(350, 170);
 
-        getContentPane().add(mainPanel);
+        add(mainPanel,BorderLayout.CENTER);
+
         setSize(d);
-        setMinimumSize(d);
+        setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
 

@@ -27,9 +27,9 @@ public enum Intersection {
     LEFT_WHITE("imagenes/izq-blanca.png"),
     LEFT_BLACK("imagenes/izq-negra.png"),
 
-    RIGHT_EMPTY("imagenes/der-vacia.png"),
-    RIGHT_WHITE("imagenes/der-blanca.png"),
-    RIGHT_BLACK("imagenes/der-negra.png"),
+    RIGTH_EMPTY("imagenes/der-vacia.png"),
+    RIGTH_WHITE("imagenes/der-blanca.png"),
+    RIGTH_BLACK("imagenes/der-negra.png"),
 
     TOP_EMPTY("imagenes/sup-vacia.png"),
     TOP_WHITE("imagenes/sup-blanca.png"),
